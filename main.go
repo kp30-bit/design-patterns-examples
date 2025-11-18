@@ -77,6 +77,12 @@ func main() {
 	mycoffee = decorator.BeverageWithMilk{Beverage: mycoffee}
 	fmt.Printf(mycoffee.Description()+"  at Rs %v", mycoffee.Cost())
 
+	notifier3 := &decorator.EmailNotifier{}
+	notifier3.Send("Hello")
+
+	logandnotify := &decorator.LogNotifier{Notifier: notifier3}
+	logandnotify.Send("Hello")
+
 	fmt.Printf("\n\n\n------ Builder EXAMPLE -------")
 
 	builder, _ := builder.NewElevatorBuilder("E1", 20).
