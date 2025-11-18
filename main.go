@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	builder "payment.go/Builder"
 	decorator "payment.go/Decorator"
 	factory "payment.go/Factory"
 	observer "payment.go/Observer"
@@ -75,5 +76,16 @@ func main() {
 
 	mycoffee = decorator.BeverageWithMilk{Beverage: mycoffee}
 	fmt.Printf(mycoffee.Description()+"  at Rs %v", mycoffee.Cost())
+
+	fmt.Printf("\n\n\n------ Builder EXAMPLE -------")
+
+	builder, _ := builder.NewElevatorBuilder("E1", 20).
+		Speed(1.5).
+		WithFireAlarm().
+		WithCamera().
+		Mode("service").
+		Build()
+
+	fmt.Printf("\n\nNew Elevator Builder id : %v", builder.ID)
 
 }
