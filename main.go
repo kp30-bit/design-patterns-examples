@@ -30,6 +30,8 @@ func main() {
 	notifier := factory.NotificationFactory("sms")
 	notifier.Send("abc@email.com", "Hi this is a notification factory")
 
+	dessert := factory.DessertFactory("Jamun")
+	fmt.Printf("\n%v\n", dessert.Serve())
 	fmt.Printf("\n\n\n------ STRATEGY EXAMPLE -------")
 
 	planner := strategy.TravelWrapper{}
@@ -40,9 +42,21 @@ func main() {
 
 	notifier2 := strategy.NotificationWrapper{}
 	notifier2.SetNotifier(&strategy.SMS{})
-
 	notifier2.Notify("Hi!!")
 
+	solver := strategy.Wrapper{}
+
+	solver.SetStrategy(&strategy.Recursivesolver{})
+
+	solver.Solve()
+	//elevator example for stragey pattern.
+	e := &strategy.Elevator{Id: 1, Floor: 2}
+	scheduler := strategy.NewNearestScheduler()
+	ctrl := &strategy.Controller{Elevator: e, Scheduler: scheduler}
+	ctrl.Submit(strategy.Req{Floor: 2})
+
+	ctrl.MoveNext()
+	fmt.Printf("\nElevator at %vnd Floor", e.CurrentFloor())
 	fmt.Printf("\n\n\n------ Observer EXAMPLE -------")
 
 	subject1 := observer.Channel{}
